@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Babson Verified Professor Reviews{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta name="description" content="Community-verified professor reviews for Babson College">
+    {% block head %}{% endblock %}
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="site-header" role="banner">
+    <div class="container header-inner">
+        <div class="brand">
+            <a class="brand-link" href="{{ url_for('index') }}">
+                <span class="logo" aria-hidden="true">🎓</span>
+                <span class="brand-text">
+                    <span class="site-title">Babson RMP</span>
+                    <span class="site-subtitle">Verified professor reviews</span>
+                </span>
+            </a>
+        </div>
+        <nav class="site-nav" aria-label="Main navigation">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('add_professor') }}">Add Professor</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main id="main-content" class="container" role="main">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer container" role="contentinfo">
+    <div class="footer-grid">
+        <div>
+            <strong>Babson RMP</strong>
+            <div><small>Community-driven professor reviews</small></div>
+        </div>
+        <div>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <small>&copy; {{ current_year or 2025 }} Babson RMP</small>
+    </div>
+</footer>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

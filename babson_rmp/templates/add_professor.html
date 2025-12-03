@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+    <h1>Add a New Professor</h1>
+
+    {% if error %}
+        <div class="alert" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <form action="{{ url_for('add_professor') }}" method="POST" aria-labelledby="add-professor-heading">
+
+        <div class="form-row">
+            <label for="name">Professor Name <span aria-hidden="true">*</span></label>
+            <input class="form-field" type="text" id="name" name="name" required value="{{ name or '' }}" placeholder="e.g. Dr. Jane Smith">
+            <div class="form-note">Use the professor's full name (include title if preferred).</div>
+        </div>
+
+        <div class="form-row">
+            <label for="department">Department (optional)</label>
+            <input class="form-field" type="text" id="department" name="department" value="{{ department or '' }}" placeholder="e.g. Economics">
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save Professor</button>
+            <a class="btn btn-secondary muted-link" href="{{ url_for('index') }}">Cancel</a>
+        </div>
+    </form>
+</section>
+
+<p style="margin-top:0.75rem;"><a href="{{ url_for('index') }}">← Back to all professors</a></p>
+
+{% endblock %}

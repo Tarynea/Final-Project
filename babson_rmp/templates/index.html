@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+    <div class="card-header">
+        <h1>Professors</h1>
+        <p class="form-note">Choose a professor to view reviews or <a href="{{ url_for('add_professor') }}">add a new professor</a>.</p>
+    </div>
+
+    <form class="search-form" method="get" action="{{ url_for('index') }}" role="search" aria-label="Search professors">
+        <label for="q" class="visually-hidden">Search professors</label>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+            <input class="form-field" type="search" id="q" name="q" value="{{ q or '' }}" placeholder="Search by name or department">
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Search</button>
+                {% if q %}
+                    <a class="btn btn-secondary muted-link" href="{{ url_for('index') }}">Clear</a>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+
+    <div class="list">
+        {% if professors %}
+            <ul>
+            {% for prof in professors %}
+                <li class="list-item">
+                    <div class="list-item-main">
+                        <a class="list-link" href="{{ url_for('professor_detail', prof_id=prof.id) }}">{{ prof.name }}</a>
+                        {% if prof.department %}
+                            <div class="form-note">{{ prof.department }}</div>
+                        {% endif %}
+                    </div>
+                    {% if prof.review_count %}
+                        <div class="list-item-meta">
+                            <div>⭐ {{ prof.avg_rating|round(1) }} / 5</div>
+                            <small>{{ prof.review_count }} review{{ '' if prof.review_count == 1 else 's' }}</small>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <div class="card">
+                <p>No professors found. Try adding one or adjust your search.</p>
+                <a class="btn btn-primary" href="{{ url_for('add_professor') }}">Add a Professor</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
